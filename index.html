@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Participation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #logo {
+            max-width: 800px; 
+        }
+        .verification-mark {
+            width: 150px; 
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="logo-container">
+        <img id="logo" src="Resources\SRULogo.png" alt="Workshop Logo">
+    </div>
+    <h1>Workshop Participation</h1>
+    <div id="verification"></div>
+    <p id="output"></p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('Name').trim();
+            const htNumber = urlParams.get('HTNumber').trim();
+            const outputElement = document.getElementById('output');
+            const verificationElement = document.getElementById('verification');
+
+            fetch('Resources\\Participants.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    const csvData = Papa.parse(csvText, { header: true }).data;
+                    const participant = csvData.find(row => row.HTNumber === htNumber && row.Name === name);
+                    if(participant) {
+                        verificationElement.innerHTML = '<img class="verification-mark" src="Resources\\Valid.png" alt="Verified">';
+                        outputElement.textContent = `${name} (${htNumber}) has participated in Study and Memory Techniques for Better Performance Workshop on April 21, 2024.`;
+                    }
+                    else{
+                        verificationElement.innerHTML = '<img class="verification-mark" src="Resources\\InValid.png" alt="Incorrect">';
+                        outputElement.textContent = `This Certificate is Not Valid`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    outputElement.textContent = `Not Valid`;
+                });
+        });
+    </script>
+</body>
+</html>
