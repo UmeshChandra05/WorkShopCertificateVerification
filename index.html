@@ -19,12 +19,29 @@
             margin-bottom: 20px;
         }
         #logo {
-            max-width: 800px; 
+            max-width: 100%; /* Adjusted to fit any screen size */
+            height: auto;
         }
         .verification-mark {
-            width: 150px; 
+            width: 100%; /* Adjusted to fit any screen size */
+            max-width: 150px; /* Set maximum width */
             height: auto;
             margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            text-align: center;
+        }
+        /* Media Query for screens smaller than 600px (typical mobile devices) */
+        @media only screen and (max-width: 600px) {
+            #logo {
+                max-width: 80%; /* Adjusted to fit smaller screens */
+            }
+            .verification-mark {
+                max-width: 100px; /* Adjusted to fit smaller screens */
+            }
         }
     </style>
 </head>
