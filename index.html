@@ -30,7 +30,7 @@
 </head>
 <body>
     <div id="logo-container">
-        <img id="logo" src="Resources\SRULogo.png" alt="Workshop Logo">
+        <img id="logo" src="SRULogo.png" alt="Workshop Logo">
     </div>
     <h1>Workshop Participation</h1>
     <div id="verification"></div>
@@ -44,17 +44,17 @@
             const outputElement = document.getElementById('output');
             const verificationElement = document.getElementById('verification');
 
-            fetch('Resources\\Participants.csv')
+            fetch("Participants.csv")
                 .then(response => response.text())
                 .then(csvText => {
                     const csvData = Papa.parse(csvText, { header: true }).data;
                     const participant = csvData.find(row => row.HTNumber === htNumber && row.Name === name);
                     if(participant) {
-                        verificationElement.innerHTML = '<img class="verification-mark" src="Resources\\Valid.png" alt="Verified">';
+                        verificationElement.innerHTML = '<img class="verification-mark" src="Valid.png" alt="Verified">';
                         outputElement.textContent = `${name} (${htNumber}) has participated in Study and Memory Techniques for Better Performance Workshop on April 21, 2024.`;
                     }
                     else{
-                        verificationElement.innerHTML = '<img class="verification-mark" src="Resources\\InValid.png" alt="Incorrect">';
+                        verificationElement.innerHTML = '<img class="verification-mark" src="InValid.png" alt="Incorrect">';
                         outputElement.textContent = `This Certificate is Not Valid`;
                     }
                 })
